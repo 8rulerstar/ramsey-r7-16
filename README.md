@@ -5,7 +5,7 @@ The dynamic survey *Small Ramsey Numbers* (S. P. Radziszowski, Electron. J. Comb
 > R(2k-1, l) >= 4R(k, l-1) - 3 for k >= 2, l >= 5
 > (Xu, Xie, Exoo, Radziszowski, Electron. J. Combin. 11 (2004) #R35, Theorem 9; two-colour case of Theorem 7)
 
-with R(4,15) >= 158. The google-research repository ([file](https://github.com/google-research/google-research/blob/master/ramsey_number_bounds/improved_bounds/R(4,%2015)%20%3E=%20163.txt)) gives a 162-vertex (4,15)-graph (`ramsey_number_bounds/improved_bounds/R(4, 15) >= 163.txt`, commit 0d94f8c, 2026-10-22). Applying the construction with k = 4, l = 16 to that graph gives a (7,16)-graph on 4 * 162 = 648 vertices, so
+which corresponds to R(4,15) >= 158 (Table I of the same revision already has R(4,15) >= 159). The google-research repository ([file](https://github.com/google-research/google-research/blob/master/ramsey_number_bounds/improved_bounds/R(4,%2015)%20%3E=%20163.txt)) gives a 162-vertex (4,15)-graph (`ramsey_number_bounds/improved_bounds/R(4, 15) >= 163.txt`, commit 0d94f8c, 2026-10-22). Applying the construction with k = 4, l = 16 to that graph gives a (7,16)-graph on 4 * 162 = 648 vertices, so
 
 **R(7,16) >= 649.**
 
@@ -16,13 +16,13 @@ with R(4,15) >= 158. The google-research repository ([file](https://github.com/g
 | file | content |
 |---|---|
 | `R7_16_648.txt` | the 648-vertex graph: first line n, then n rows of 0/1 (1 = edge). No K7, no independent set of size 16. |
-| `R(4, 15) >= 163.txt` | the input graph, unchanged copy from google-research (Apache License 2.0) |
+| `R(4, 15) >= 163.txt` | the input graph, unchanged copy from google-research (a 162 x 162 0/1 matrix written as a nested list); Apache License 2.0 |
 | `R4_15_162.txt` | modified file: the same input graph converted to the plain format by `convert_gr.py` (only the file format changed) |
 | `build_23i.py` | the construction of the theorem (vertices (i, j), i = 0..3 copies, j = vertex of the input graph) |
 | `verify.c`, `verify704.c` | plain branch-and-bound checker (greedy colouring bound), no symmetry assumptions |
 | `vpar.c` | the same search split by root vertex, used with the automorphisms below |
-| `reproduce.sh` | rebuilds the graph and runs every check |
-| `SHA256SUMS` | checksums of the two graph files |
+| `reproduce.sh` | rebuilds the graph and runs every check (the independent-set search starts 8 processes and takes about 20 minutes on 8 cores) |
+| `SHA256SUMS` | checksums of `R7_16_648.txt`, `R(4, 15) >= 163.txt` and `R4_15_162.txt` |
 
 ## Construction (as implemented in `build_23i.py`)
 
@@ -35,7 +35,7 @@ Vertices (i, j), i in {0,1,2,3}, j in V(G). Let G be the (4,15)-graph.
 
 1. The input graph has no K4 and no independent 15-set (`verify 4 15`).
 2. The copy permutations (0 1), (2 3) and (0 2)(1 3) are automorphisms of H (checked on the whole adjacency matrix by `check_automorphisms.py`). They act transitively on the four copies, so every clique or independent set can be mapped to one that meets copy 0 (vertices 0..161).
-3. `vpar` searches, for each root v in 0..161, cliques (or independent sets) containing v inside N(v) minus {0, ..., v-1}. Over all roots this covers every clique meeting copy 0.
+3. Every clique (resp. independent set) S meeting copy 0 is found exactly once: take v = the smallest vertex of S in copy 0 as the root; then S minus {v} lies in N(v) (resp. in the non-neighbourhood of v) and contains no vertex of {0, ..., v-1} within copy 0. `vpar` searches, for each root v in 0..161, inside N(v) minus {0, ..., v-1} (mode 0, cliques) or inside the non-neighbourhood of v minus {0, ..., v-1} (mode 1, independent sets).
 4. Result: no K7 (roots 0..161, 9.7e7 search nodes) and no independent set of size 16 (roots 0..161, 1.87e10 search nodes). Run on an Apple M4 Pro, 8 processes in parallel, about 20 minutes of wall time for the independent-set search (logs in `logs/`).
 5. Sanity check of the same code path: the construction applied to a 58-vertex (4,8)-graph gives a 232-vertex graph, which `verify` confirms is a (7,9)-graph.
 
