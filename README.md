@@ -5,7 +5,7 @@ The dynamic survey *Small Ramsey Numbers* (S. P. Radziszowski, Electron. J. Comb
 > R(2k-1, l) >= 4R(k, l-1) - 3 for k >= 2, l >= 5
 > (Xu, Xie, Exoo, Radziszowski, Electron. J. Combin. 11 (2004) #R35, Theorem 9; two-colour case of Theorem 7)
 
-with R(4,15) >= 158. The google-research repository gives a 162-vertex (4,15)-graph (`ramsey_number_bounds/improved_bounds/R(4, 15) >= 163.txt`, commit 0d94f8c, 2026-10-22). Applying the construction with k = 4, l = 16 to that graph gives a (7,16)-graph on 4 * 162 = 648 vertices, so
+with R(4,15) >= 158. The google-research repository ([file](https://github.com/google-research/google-research/blob/master/ramsey_number_bounds/improved_bounds/R(4,%2015)%20%3E=%20163.txt)) gives a 162-vertex (4,15)-graph (`ramsey_number_bounds/improved_bounds/R(4, 15) >= 163.txt`, commit 0d94f8c, 2026-10-22). Applying the construction with k = 4, l = 16 to that graph gives a (7,16)-graph on 4 * 162 = 648 vertices, so
 
 **R(7,16) >= 649.**
 
@@ -17,7 +17,7 @@ with R(4,15) >= 158. The google-research repository gives a 162-vertex (4,15)-gr
 |---|---|
 | `R7_16_648.txt` | the 648-vertex graph: first line n, then n rows of 0/1 (1 = edge). No K7, no independent set of size 16. |
 | `R(4, 15) >= 163.txt` | the input graph, unchanged copy from google-research (Apache License 2.0) |
-| `R4_15_162.txt` | the same input graph in the plain format (`convert_gr.py`) |
+| `R4_15_162.txt` | modified file: the same input graph converted to the plain format by `convert_gr.py` (only the file format changed) |
 | `build_23i.py` | the construction of the theorem (vertices (i, j), i = 0..3 copies, j = vertex of the input graph) |
 | `verify.c`, `verify704.c` | plain branch-and-bound checker (greedy colouring bound), no symmetry assumptions |
 | `vpar.c` | the same search split by root vertex, used with the automorphisms below |
@@ -45,4 +45,4 @@ Byungkun Jang, independent researcher, bkbkjang@gmail.com
 
 ## License
 
-Code in this directory: MIT. The file `R(4, 15) >= 163.txt` is from google-research (Apache License 2.0).
+Code in this directory: MIT (see `LICENSE`). The file `R(4, 15) >= 163.txt` is an unchanged copy from google-research and `R4_15_162.txt` is a format conversion of it; both are under the Apache License 2.0 (copy in `LICENSES/Apache-2.0.txt`).
