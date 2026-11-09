@@ -34,7 +34,7 @@ Vertices (i, j), i in {0,1,2,3}, j in V(G). Let G be the (4,15)-graph.
 ## Verification
 
 1. The input graph has no K4 and no independent 15-set (`verify 4 15`).
-2. The copy permutations (0 1), (2 3) and (0 2)(1 3) are automorphisms of H (checked on the whole adjacency matrix). They act transitively on the four copies, so every clique or independent set can be mapped to one that meets copy 0 (vertices 0..161).
+2. The copy permutations (0 1), (2 3) and (0 2)(1 3) are automorphisms of H (checked on the whole adjacency matrix by `check_automorphisms.py`). They act transitively on the four copies, so every clique or independent set can be mapped to one that meets copy 0 (vertices 0..161).
 3. `vpar` searches, for each root v in 0..161, cliques (or independent sets) containing v inside N(v) minus {0, ..., v-1}. Over all roots this covers every clique meeting copy 0.
 4. Result: no K7 (roots 0..161, 9.7e7 search nodes) and no independent set of size 16 (roots 0..161, 1.87e10 search nodes). Run on an Apple M4 Pro, 8 processes in parallel, about 20 minutes of wall time for the independent-set search (logs in `logs/`).
 5. Sanity check of the same code path: the construction applied to a 58-vertex (4,8)-graph gives a 232-vertex graph, which `verify` confirms is a (7,9)-graph.
