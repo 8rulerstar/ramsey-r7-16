@@ -9,6 +9,8 @@ which corresponds to R(4,15) >= 158 (Table I of the same revision already has R(
 
 **R(7,16) >= 649.**
 
+This depends on the 162-vertex (4,15)-graph posted in the google-research repository, which is not (as far as I know) published in a paper. The input graph was checked independently here (see Verification).
+
 (With R(4,15) >= 159 from Table I of DS1 #18 alone, the same item gives R(7,16) >= 633.)
 
 ## Files
@@ -21,6 +23,8 @@ which corresponds to R(4,15) >= 158 (Table I of the same revision already has R(
 | `build_23i.py` | the construction of the theorem (vertices (i, j), i = 0..3 copies, j = vertex of the input graph) |
 | `verify.c`, `verify704.c` | plain branch-and-bound checker (greedy colouring bound), no symmetry assumptions |
 | `vpar.c` | the same search split by root vertex, used with the automorphisms below |
+| `convert_gr.py` | converts the google-research file to the plain format |
+| `check_automorphisms.py` | checks that the copy permutations are automorphisms of the 648-vertex graph |
 | `reproduce.sh` | rebuilds the graph and runs every check (the independent-set search starts 8 processes and takes about 20 minutes on 8 cores) |
 | `SHA256SUMS` | checksums of `R7_16_648.txt`, `R(4, 15) >= 163.txt` and `R4_15_162.txt` |
 
@@ -37,7 +41,8 @@ Vertices (i, j), i in {0,1,2,3}, j in V(G). Let G be the (4,15)-graph.
 2. The copy permutations (0 1), (2 3) and (0 2)(1 3) are automorphisms of H (checked on the whole adjacency matrix by `check_automorphisms.py`). They act transitively on the four copies, so every clique or independent set can be mapped to one that meets copy 0 (vertices 0..161).
 3. Every clique (resp. independent set) S meeting copy 0 is found exactly once: take v = the smallest vertex of S in copy 0 as the root; then S minus {v} lies in N(v) (resp. in the non-neighbourhood of v) and contains no vertex of {0, ..., v-1} within copy 0. `vpar` searches, for each root v in 0..161, inside N(v) minus {0, ..., v-1} (mode 0, cliques) or inside the non-neighbourhood of v minus {0, ..., v-1} (mode 1, independent sets).
 4. Result: no K7 (roots 0..161, 9.7e7 search nodes) and no independent set of size 16 (roots 0..161, 1.87e10 search nodes). Run on an Apple M4 Pro, 8 processes in parallel, about 20 minutes of wall time for the independent-set search (logs in `logs/`).
-5. Sanity check of the same code path: the construction applied to a 58-vertex (4,8)-graph gives a 232-vertex graph, which `verify` confirms is a (7,9)-graph.
+5. The plain checker without symmetry assumptions (`verify704 7 16`) was not run to completion (it did not finish within about an hour on one core); the exhaustive check above relies on the automorphisms in step 2. The reduction in `vpar` was cross-checked against `verify` on small graphs built by the same construction.
+6. Sanity check of the same code path: the construction applied to a 58-vertex (4,8)-graph gives a 232-vertex graph, which `verify` confirms is a (7,9)-graph.
 
 ## Contact
 
