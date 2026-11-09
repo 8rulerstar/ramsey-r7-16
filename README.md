@@ -13,6 +13,20 @@ This depends on the 162-vertex (4,15)-graph posted in the google-research reposi
 
 (With R(4,15) >= 159 from Table I of DS1 #18 alone, the same item gives R(7,16) >= 633.)
 
+## Status
+
+- 2026-11-09: reported to the maintainer of the dynamic survey (S. P. Radziszowski). Not yet confirmed or listed.
+- The bound depends on the 162-vertex (4,15)-graph from google-research, checked independently here.
+
+## Quick start
+
+```sh
+git clone https://github.com/8rulerstar/ramsey-r7-16 && cd ramsey-r7-16
+sh reproduce.sh      # rebuilds the graph from the input and runs every check (about 20 minutes on 8 cores)
+```
+
+`reproduce.sh` prints "input matches", "rebuilt graph matches", the automorphism check, and "NONE" for every clique and independent-set search range.
+
 ## Files
 
 | file | content |
