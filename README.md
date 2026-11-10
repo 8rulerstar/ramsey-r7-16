@@ -16,6 +16,7 @@ This depends on the 162-vertex (4,15)-graph posted in the google-research reposi
 ## Status
 
 - 2026-11-09: reported to the maintainer of the dynamic survey (S. P. Radziszowski). Not yet confirmed or listed.
+- 2026-11-10: the survey author acknowledged receipt; inclusion will be decided in a future revision.
 - The bound depends on the 162-vertex (4,15)-graph from google-research, checked independently here.
 
 ## Quick start
