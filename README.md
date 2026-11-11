@@ -1,5 +1,8 @@
 # A (7,16)-graph on 648 vertices: R(7,16) >= 649
 
+> **Moved:** this result now lives in [ramsey-lower-bounds/r7-16](https://github.com/8rulerstar/ramsey-lower-bounds/tree/main/r7-16), together with the author's other bounds. This repository is kept, archived, so that existing links keep working.
+
+
 The dynamic survey *Small Ramsey Numbers* (S. P. Radziszowski, Electron. J. Combin. DS1, revision #18, 2026) lists R(7,16) >= 629, from item 2.3.i:
 
 > R(2k-1, l) >= 4R(k, l-1) - 3 for k >= 2, l >= 5
